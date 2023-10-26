@@ -27,6 +27,19 @@ namespace vanRental.Services
                throw new Exception(ex.Message);
 }
         }
+        public Vehicles GetOneVehicle(int id)
+        {
+            try
+            {
+                var vehicle = _context.Vehicles.Where(x => x.Id == id).First();
+                return vehicle;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
     }
 
     

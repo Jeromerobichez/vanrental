@@ -32,11 +32,17 @@ namespace vanRental.Controllers
            
             return Ok(vehicles);
         }
-        [HttpGet("GetAllVehicles", Name = "GetAllVehicles")]
+        [HttpGet("GetAllVehicles")]
         public IActionResult GetAllVehicles()
         {
             var vehicles = _vanRentalService.GetDataOfVehicles();
             return Ok(vehicles);
+        }
+        [HttpGet("GetOneVehicleById")]
+        public IActionResult GetOneVehicleById(int id)
+        {
+            var vehicle = _vanRentalService.GetOneVehicle(id);
+            return Ok(vehicle);
         }
     }
 }

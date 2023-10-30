@@ -34,6 +34,10 @@
       {
          "Name": "[dbo].[vehicles]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[getInfosOneVehicle]",
+         "ObjectType": 1
       }
    ],
    "UiHint": "pc_de_jerome.van_rental.dbo",
@@ -49,6 +53,7 @@
    "UseLegacyPluralizer": false,
    "UseManyToManyEntity": false,
    "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
    "UseNoObjectFilter": false,
    "UseNodaTime": false,
    "UseNullableReferences": false,

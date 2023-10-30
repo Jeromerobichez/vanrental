@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using vanRental.Models;
+using van_rental.Models;
 using vanRental.Services;
 
 namespace vanRental.Controllers
@@ -10,10 +10,10 @@ namespace vanRental.Controllers
     public class vanRentalController : ControllerBase
     {
 
-        private readonly vanRentalContext _context;
+        private readonly van_rentalContext _context;
         private readonly vanRentalService _vanRentalService;
 
-        public vanRentalController(vanRentalContext context, vanRentalService vanRentalService)
+        public vanRentalController(van_rentalContext context, vanRentalService vanRentalService)
         {
             _context = context;
             _vanRentalService = vanRentalService;
@@ -39,9 +39,9 @@ namespace vanRental.Controllers
             return Ok(vehicles);
         }
         [HttpGet("GetOneVehicleById")]
-        public IActionResult GetOneVehicleById(int id)
+        public async Task<IActionResult> GetOneVehicleById(int id)
         {
-            var vehicle = _vanRentalService.GetOneVehicle(id);
+            var vehicle = await _vanRentalService.GetOneVehicleAllInfos(id);
             return Ok(vehicle);
         }
     }

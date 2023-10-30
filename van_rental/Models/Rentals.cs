@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace vanRental.Models;
+namespace van_rental.Models;
 
 public partial class Rentals
 {

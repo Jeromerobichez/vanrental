@@ -4,15 +4,15 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace vanRental.Models;
+namespace van_rental.Models;
 
-public partial class vanRentalContext : DbContext
+public partial class van_rentalContext : DbContext
 {
-    public vanRentalContext()
+    public van_rentalContext()
     {
     }
 
-    public vanRentalContext(DbContextOptions<vanRentalContext> options)
+    public van_rentalContext(DbContextOptions<van_rentalContext> options)
         : base(options)
     {
     }
@@ -27,6 +27,9 @@ public partial class vanRentalContext : DbContext
 
     public virtual DbSet<Vehicles> Vehicles { get; set; }
 
+//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//        => optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=van_rental;Integrated Security=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -145,6 +148,7 @@ public partial class vanRentalContext : DbContext
                 .HasConstraintName("fk_model_id");
         });
 
+        OnModelCreatingGeneratedProcedures(modelBuilder);
         OnModelCreatingPartial(modelBuilder);
     }
 

@@ -34,6 +34,7 @@ namespace van_rental.Models
 
         protected void OnModelCreatingGeneratedProcedures(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<GetAvailablesVehiclesResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<getInfosOneVehicleResult>().HasNoKey().ToView(null);
         }
     }
@@ -45,6 +46,38 @@ namespace van_rental.Models
         public van_rentalContextProcedures(van_rentalContext context)
         {
             _context = context;
+        }
+
+        public virtual async Task<List<GetAvailablesVehiclesResult>> GetAvailablesVehiclesAsync(DateTime? departureDate, DateTime? returnDate, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "departureDate",
+                    Value = departureDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Date,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "returnDate",
+                    Value = returnDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Date,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<GetAvailablesVehiclesResult>("EXEC @returnValue = [dbo].[GetAvailablesVehicles] @departureDate, @returnDate", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
         }
 
         public virtual async Task<List<getInfosOneVehicleResult>> getInfosOneVehicleAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)

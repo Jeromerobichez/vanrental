@@ -4,7 +4,7 @@
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
-   "IncludeConnectionString": true,
+   "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
    "OutputPath": "Models",
@@ -34,6 +34,10 @@
       {
          "Name": "[dbo].[vehicles]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GetAvailablesVehicles]",
+         "ObjectType": 1
       },
       {
          "Name": "[dbo].[getInfosOneVehicle]",

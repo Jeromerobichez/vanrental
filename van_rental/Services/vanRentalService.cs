@@ -16,20 +16,20 @@ namespace vanRental.Services
         public vanRentalService(van_rentalContext context)
         {
             _context = context;
-        
+
         }
         public List<Vehicles> GetDataOfVehicles()
         {
             try
             {
-                var vehicles =  _context.Vehicles.ToList();
-               
+                var vehicles = _context.Vehicles.ToList();
+
                 return vehicles;
             }
             catch (Exception ex)
             {
-               throw new Exception(ex.Message);
-}
+                throw new Exception(ex.Message);
+            }
         }
         public Vehicles GetOneVehicle(int id)
         {
@@ -44,7 +44,7 @@ namespace vanRental.Services
             }
 
         }
-        public async Task <getInfosOneVehicleResult> GetOneVehicleAllInfos(int id)
+        public async Task<getInfosOneVehicleResult> GetOneVehicleAllInfos(int id)
         {
             try
             {
@@ -58,11 +58,38 @@ namespace vanRental.Services
             {
                 throw new Exception(ex.Message);
             }
-        public async Task<List<GetAvailablesVehiclesResult>> getAvailableVehiclesBetweenDate(DateTime departureDate, DateTime returnDate)
 
         }
-    }
 
+
+        public async Task<List<GetAvailablesVehiclesResult>> getAvailableVehiclesBetweenDate(DateTime departureDate, DateTime returnDate)
+        {
+           
+                if (returnDate > departureDate)
+                {
+                    var vehicleResult = await _context.Procedures.GetAvailablesVehiclesAsync(departureDate.Date, returnDate.Date);
+
+                return vehicleResult;
+            }
+            else throw new Exception("la date de retour est antérieure à la date de départ");
+
+
+        }
+
+        public Task<IEnumerable<getInfosOneVehicleResult>> GetInfosForOneOrMoreVehicles(int[] idsOfAvaiblablesVehicles)
+        {
+
+
+           var availablesVehicules =  idsOfAvaiblablesVehicles.Select(id => GetOneVehicleAllInfos(id));
+
+
+            return (Task<IEnumerable<getInfosOneVehicleResult>>)availablesVehicules;
+        }
+    }
+ 
+
+
+    }
     
 
-}
+

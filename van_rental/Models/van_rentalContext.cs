@@ -8,10 +8,6 @@ namespace van_rental.Models;
 
 public partial class van_rentalContext : DbContext
 {
-    public van_rentalContext()
-    {
-    }
-
     public van_rentalContext(DbContextOptions<van_rentalContext> options)
         : base(options)
     {
@@ -26,7 +22,6 @@ public partial class van_rentalContext : DbContext
     public virtual DbSet<VehicleModels> VehicleModels { get; set; }
 
     public virtual DbSet<Vehicles> Vehicles { get; set; }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

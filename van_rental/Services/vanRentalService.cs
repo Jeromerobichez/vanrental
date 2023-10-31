@@ -58,6 +58,7 @@ namespace vanRental.Services
             {
                 throw new Exception(ex.Message);
             }
+        public async Task<List<GetAvailablesVehiclesResult>> getAvailableVehiclesBetweenDate(DateTime departureDate, DateTime returnDate)
 
         }
     }

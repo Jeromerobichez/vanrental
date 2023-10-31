@@ -50,7 +50,7 @@ namespace vanRental.Controllers
             var availableVehicle = await _vanRentalService.getAvailableVehiclesBetweenDate(departureDate, returnDate);
             return Ok(availableVehicle);
         }
-        [HttpGet("bibou")]
+        [HttpGet("GetInfosForOneOrMoreVehicles")]
         public async Task <List<getInfosOneVehicleResult>> GetInfosForOneOrMoreVehicles([FromQuery] int[] idsOfAvaiblablesVehicles)
         {
 

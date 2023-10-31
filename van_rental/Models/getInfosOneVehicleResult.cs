@@ -8,6 +8,7 @@ namespace van_rental.Models
     public partial class getInfosOneVehicleResult
     {
         public bool? automatic_gear { get; set; }
+        public int id { get; set; }
         public int? km { get; set; }
         public string comments { get; set; }
         public DateTime? registration_date { get; set; }

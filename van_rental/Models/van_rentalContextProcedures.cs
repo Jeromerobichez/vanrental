@@ -48,7 +48,7 @@ namespace van_rental.Models
             _context = context;
         }
 
-        public virtual async Task<List<GetAvailablesVehiclesResult>> GetAvailablesVehiclesAsync(DateTime? departureDate, DateTime? returnDate, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GetAvailablesVehiclesResult>> GetAvailablesVehiclesAsync(DateTime? departureDate, DateTime? endDate, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -67,13 +67,13 @@ namespace van_rental.Models
                 },
                 new SqlParameter
                 {
-                    ParameterName = "returnDate",
-                    Value = returnDate ?? Convert.DBNull,
+                    ParameterName = "endDate",
+                    Value = endDate ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.Date,
                 },
                 parameterreturnValue,
             };
-            var _ = await _context.SqlQueryAsync<GetAvailablesVehiclesResult>("EXEC @returnValue = [dbo].[GetAvailablesVehicles] @departureDate, @returnDate", sqlParameters, cancellationToken);
+            var _ = await _context.SqlQueryAsync<GetAvailablesVehiclesResult>("EXEC @returnValue = [dbo].[GetAvailablesVehicles] @departureDate, @endDate", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

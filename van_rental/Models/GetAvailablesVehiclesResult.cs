@@ -7,6 +7,16 @@ namespace van_rental.Models
 {
     public partial class GetAvailablesVehiclesResult
     {
+        public bool? automatic_gear { get; set; }
         public int id { get; set; }
+        public int? km { get; set; }
+        public string comments { get; set; }
+        public DateTime? registration_date { get; set; }
+        public string color_name { get; set; }
+        public string name { get; set; }
+        public int? gas_tank { get; set; }
+        public int? pax { get; set; }
+        public int? price_per_day { get; set; }
+        public string picture_url { get; set; }
     }
 }

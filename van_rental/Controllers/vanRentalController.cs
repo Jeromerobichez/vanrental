@@ -47,7 +47,7 @@ namespace vanRental.Controllers
         [HttpGet("GetAvailableVehicles")]
         public async Task<IActionResult> GetAvailableVehicles(DateTime departureDate, DateTime returnDate)
         {
-            var availableVehicle = await _vanRentalService.getAvailableVehiclesBetweenDate(departureDate, returnDate);
+            var availableVehicle = await _vanRentalService.getAvailableVehiclesBetweenTwoDates(departureDate, returnDate);
             return Ok(availableVehicle);
         }
         [HttpGet("GetInfosForOneOrMoreVehicles")]

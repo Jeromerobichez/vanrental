@@ -98,6 +98,18 @@ namespace vanRental.Services
             var rentalToCreate = await _context.Procedures.updateARentalAsync(id, startDate, endDate, clientId, vehicleId);
             return rentalToCreate;
         }
+        public async Task<int> CreateNewClient(string lastName, string firstName, string tel, string mail)
+        {
+
+            var newClientToCreate = await _context.Procedures.createNewClientAsync(lastName, firstName, tel, mail);
+            return newClientToCreate;
+        }
+        public async Task<int> ModifyAClient(int id, string? lastName, string?firstName, string? tel, string? mail)
+        {
+
+            var rentalToCreate = await _context.Procedures.UpdateAClientAsync(id, lastName, firstName, tel, mail);
+            return rentalToCreate;
+        }
     }
  
 

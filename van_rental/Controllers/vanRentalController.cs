@@ -62,7 +62,7 @@ namespace vanRental.Controllers
             return availablesVehicules;
         }
         [HttpPost("PostNewRental")]
-        public async Task<IActionResult> Post([FromQuery] DateTime startDate ,DateTime endDate, int clientId, int vehicleId )
+        public async Task<IActionResult> PostNewRental([FromQuery] DateTime startDate ,DateTime endDate, int clientId, int vehicleId )
         {
 
             var newRental = await _vanRentalService.CreateNewRental(startDate, endDate, clientId, vehicleId);
@@ -71,10 +71,39 @@ namespace vanRental.Controllers
             return Ok(newRental);
         }
         [HttpPatch("UpdateARental")]
-        public async Task<IActionResult> Patch([FromQuery] int id, DateTime? startDate, Nullable<DateTime> endDate, Nullable<int> clientId, Nullable<int> vehicleId)
+        public async Task<IActionResult> PatchRental([FromQuery]
+        int id,
+        DateTime? startDate,
+        DateTime? endDate,
+        int? clientId,
+        int? vehicleId)
         {
 
             var newRental = await _vanRentalService.ModifyARental(id, startDate, endDate, clientId, vehicleId);
+
+
+            return Ok(newRental);
+        }
+        [HttpPost("PostNewClient")]
+        public async Task<IActionResult> PostNewClient([FromQuery] string lastName, string firstName, string tel, string mail)
+        {
+
+            var newRental = await _vanRentalService.CreateNewClient(lastName, firstName, tel, mail);
+
+
+            return Ok(newRental);
+        }
+        [HttpPatch("UpdateAClient")]
+        public async Task<IActionResult> PatchClient([FromQuery]
+        int id,
+       string? lastName,
+       string? firstName,
+       string? tel,
+       string? mail
+            )
+        {
+
+            var newRental = await _vanRentalService.ModifyAClient(id, lastName, firstName, tel, mail);
 
 
             return Ok(newRental);

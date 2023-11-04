@@ -36,6 +36,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[createNewClient]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[createNewRental]",
          "ObjectType": 1
       },
@@ -45,6 +49,10 @@
       },
       {
          "Name": "[dbo].[getInfosOneVehicle]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[UpdateAClient]",
          "ObjectType": 1
       },
       {

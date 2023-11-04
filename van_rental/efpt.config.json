@@ -48,6 +48,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[deleteRental]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[GetAvailablesVehicles]",
          "ObjectType": 1
       },

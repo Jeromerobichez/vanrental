@@ -113,8 +113,14 @@ namespace vanRental.Services
         public async Task<int> DeleteAClient(int id)
         {
 
-            var rentalToCreate = await _context.Procedures.deleteClientAsync(id);
-            return rentalToCreate;
+            var clientToDelete = await _context.Procedures.deleteClientAsync(id);
+            return clientToDelete;
+        }
+        public async Task<int> DeleteARental(int id)
+        {
+
+            var rentalToDelete = await _context.Procedures.deleteRentalAsync(id);
+            return rentalToDelete;
         }
     }
  

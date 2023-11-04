@@ -117,6 +117,16 @@ namespace vanRental.Controllers
 
 
             return Ok(deletedClient);
-                  }
+        }
+
+        [HttpDelete("DeleteARental")]
+        public async Task<IActionResult> DeleteARental(int id)
+        {
+
+            var deletedRental = await _vanRentalService.DeleteARental(id);
+
+
+            return Ok(deletedRental);
+        }
     }
 }

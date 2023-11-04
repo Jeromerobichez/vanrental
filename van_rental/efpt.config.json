@@ -36,6 +36,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[createNewRental]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[GetAvailablesVehicles]",
          "ObjectType": 1
       },

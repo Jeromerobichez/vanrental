@@ -61,5 +61,14 @@ namespace vanRental.Controllers
 
             return availablesVehicules;
         }
+        [HttpPost("PostNewRental")]
+        public async Task<IActionResult> Post([FromQuery] DateTime startDate ,DateTime endDate, int clientId, int vehicleId )
+        {
+
+            var newRental = await _vanRentalService.CreateNewRental(startDate, endDate, clientId, vehicleId);
+            
+
+            return Ok(newRental);
+        }
     }
 }

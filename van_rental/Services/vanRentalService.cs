@@ -86,6 +86,12 @@ namespace vanRental.Services
 
             return (Task<IEnumerable<getInfosOneVehicleResult>>)availablesVehicules;
         }
+        public async Task<int> CreateNewRental(DateTime startDate,  DateTime endDate, int clientId, int vehicleId)
+        {
+
+            var rentalToCreate = await _context.Procedures.createNewRentalAsync(startDate, endDate, clientId, vehicleId);
+            return rentalToCreate;
+        }
     }
  
 

@@ -12,6 +12,7 @@ namespace van_rental.Models
 {
     public partial interface Ivan_rentalContextProcedures
     {
+        Task<int> createNewRentalAsync(DateTime? departureDate, DateTime? returnDate, int? clientId, int? vehicleId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<GetAvailablesVehiclesResult>> GetAvailablesVehiclesAsync(DateTime? departureDate, DateTime? endDate, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<getInfosOneVehicleResult>> getInfosOneVehicleAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
     }

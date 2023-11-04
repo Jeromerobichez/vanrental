@@ -70,5 +70,14 @@ namespace vanRental.Controllers
 
             return Ok(newRental);
         }
+        [HttpPatch("UpdateARental")]
+        public async Task<IActionResult> Patch([FromQuery] int id, DateTime? startDate, Nullable<DateTime> endDate, Nullable<int> clientId, Nullable<int> vehicleId)
+        {
+
+            var newRental = await _vanRentalService.ModifyARental(id, startDate, endDate, clientId, vehicleId);
+
+
+            return Ok(newRental);
+        }
     }
 }

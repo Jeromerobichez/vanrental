@@ -46,6 +46,10 @@
       {
          "Name": "[dbo].[getInfosOneVehicle]",
          "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[updateARental]",
+         "ObjectType": 1
       }
    ],
    "UiHint": "pc_de_jerome.van_rental.dbo",

@@ -21,6 +21,8 @@ public partial class Vehicles
 
     public int ColorId { get; set; }
 
+    public bool? HasBeenSold { get; set; }
+
     public virtual Colors Color { get; set; }
 
     public virtual VehicleModels Model { get; set; }

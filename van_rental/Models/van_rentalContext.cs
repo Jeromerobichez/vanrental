@@ -123,6 +123,9 @@ public partial class van_rentalContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("comments");
+            entity.Property(e => e.HasBeenSold)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("hasBeenSold");
             entity.Property(e => e.Km).HasColumnName("km");
             entity.Property(e => e.ModelId).HasColumnName("model_id");
             entity.Property(e => e.RegistrationDate)

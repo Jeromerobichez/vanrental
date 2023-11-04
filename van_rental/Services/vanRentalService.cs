@@ -122,6 +122,25 @@ namespace vanRental.Services
             var rentalToDelete = await _context.Procedures.deleteRentalAsync(id);
             return rentalToDelete;
         }
+        
+         public async Task<int> CreateNewVehicle(DateTime registrationDate, int km, bool automaticGear, string? comments, int modelId, int colorId, bool hasBeenSold)
+        {
+
+            var newVehicleToCreate = await _context.Procedures.createNewVehicleAsync(registrationDate, km, automaticGear, comments, modelId, colorId, hasBeenSold);
+            return newVehicleToCreate;
+        }
+        public async Task<int> ModifyAVehicle(int id, DateTime? registrationDate, int? km, bool? automaticGear, string? comments, int? modelId, int? colorId, bool? hasBeenSold)
+        {
+
+            var vehicleToModdify = await _context.Procedures.updateVehicleAsync(id, registrationDate, km, automaticGear, comments, modelId, colorId, hasBeenSold);
+            return vehicleToModdify;
+        }
+        public async Task<int> DeleteVehicle(int id)
+        {
+
+            var vehicleToDelete = await _context.Procedures.deleteVehicleAsync(id);
+            return vehicleToDelete;
+        }
     }
  
 

@@ -12,6 +12,7 @@ namespace van_rental.Models
         public int? km { get; set; }
         public string comments { get; set; }
         public DateTime? registration_date { get; set; }
+        public bool? hasBeenSold { get; set; }
         public string color_name { get; set; }
         public string name { get; set; }
         public int? gas_tank { get; set; }

@@ -44,11 +44,19 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[createNewVehicle]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[deleteClient]",
          "ObjectType": 1
       },
       {
          "Name": "[dbo].[deleteRental]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[deleteVehicle]",
          "ObjectType": 1
       },
       {
@@ -65,6 +73,10 @@
       },
       {
          "Name": "[dbo].[updateARental]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[updateVehicle]",
          "ObjectType": 1
       }
    ],

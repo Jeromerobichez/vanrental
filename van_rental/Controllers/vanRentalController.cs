@@ -38,12 +38,12 @@ namespace vanRental.Controllers
             var vehicles = _vanRentalService.GetDataOfVehicles();
             return Ok(vehicles);
         }
-        [HttpGet("GetOneVehicleById")]
-        public async Task<IActionResult> GetOneVehicleById(int id)
-        {
-            var vehicle = await _vanRentalService.GetOneVehicleAllInfos(id);
-            return Ok(vehicle);
-        }
+        //[HttpGet("GetOneVehicleById")]
+        //public async Task<IActionResult> GetOneVehicleById(int id)
+        //{
+        //    var vehicle = await _vanRentalService.GetOneVehicleAllInfos(id);
+        //    return Ok(vehicle);
+        //}
         [HttpGet("GetAvailableVehicles")]
         public async Task<IActionResult> GetAvailableVehicles(DateTime departureDate, DateTime returnDate)
         {

@@ -14,11 +14,14 @@ namespace van_rental.Models
     {
         Task<int> createNewClientAsync(string lastName, string firstName, string tel, string mail, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> createNewRentalAsync(DateTime? departureDate, DateTime? returnDate, int? clientId, int? vehicleId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> createNewVehicleAsync(DateTime? registrationDate, int? km, bool? automaticGear, string comments, int? modelId, int? colorId, bool? sold, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> deleteClientAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> deleteRentalAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> deleteVehicleAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<GetAvailablesVehiclesResult>> GetAvailablesVehiclesAsync(DateTime? departureDate, DateTime? endDate, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<getInfosOneVehicleResult>> getInfosOneVehicleAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> UpdateAClientAsync(int? id, string lastName, string firstName, string tel, string mail, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> updateARentalAsync(int? id, DateTime? departureDate, DateTime? endDate, int? clientId, int? vehicleId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> updateVehicleAsync(int? id, DateTime? registrationDate, int? km, bool? automaticGear, string comments, int? modelId, int? colorId, bool? hasBeenSold, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
     }
 }

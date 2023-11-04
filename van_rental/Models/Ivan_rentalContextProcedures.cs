@@ -14,6 +14,7 @@ namespace van_rental.Models
     {
         Task<int> createNewClientAsync(string lastName, string firstName, string tel, string mail, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> createNewRentalAsync(DateTime? departureDate, DateTime? returnDate, int? clientId, int? vehicleId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> deleteClientAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<GetAvailablesVehiclesResult>> GetAvailablesVehiclesAsync(DateTime? departureDate, DateTime? endDate, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<getInfosOneVehicleResult>> getInfosOneVehicleAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> UpdateAClientAsync(int? id, string lastName, string firstName, string tel, string mail, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);

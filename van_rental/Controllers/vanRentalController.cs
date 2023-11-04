@@ -79,19 +79,19 @@ namespace vanRental.Controllers
         int? vehicleId)
         {
 
-            var newRental = await _vanRentalService.ModifyARental(id, startDate, endDate, clientId, vehicleId);
+            var modifiedRental = await _vanRentalService.ModifyARental(id, startDate, endDate, clientId, vehicleId);
 
 
-            return Ok(newRental);
+            return Ok(modifiedRental);
         }
         [HttpPost("PostNewClient")]
         public async Task<IActionResult> PostNewClient([FromQuery] string lastName, string firstName, string tel, string mail)
         {
 
-            var newRental = await _vanRentalService.CreateNewClient(lastName, firstName, tel, mail);
+            var newClient = await _vanRentalService.CreateNewClient(lastName, firstName, tel, mail);
 
 
-            return Ok(newRental);
+            return Ok(newClient);
         }
         [HttpPatch("UpdateAClient")]
         public async Task<IActionResult> PatchClient([FromQuery]
@@ -103,10 +103,20 @@ namespace vanRental.Controllers
             )
         {
 
-            var newRental = await _vanRentalService.ModifyAClient(id, lastName, firstName, tel, mail);
+            var modifiedClient = await _vanRentalService.ModifyAClient(id, lastName, firstName, tel, mail);
 
 
-            return Ok(newRental);
+            return Ok(modifiedClient);
         }
+
+        [HttpDelete("DeleteAClient")]
+        public async Task<IActionResult> DeleteAClient(int id)
+        {
+
+            var deletedClient = await _vanRentalService.DeleteAClient(id);
+
+
+            return Ok(deletedClient);
+                  }
     }
 }

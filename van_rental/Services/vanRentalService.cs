@@ -110,6 +110,12 @@ namespace vanRental.Services
             var rentalToCreate = await _context.Procedures.UpdateAClientAsync(id, lastName, firstName, tel, mail);
             return rentalToCreate;
         }
+        public async Task<int> DeleteAClient(int id)
+        {
+
+            var rentalToCreate = await _context.Procedures.deleteClientAsync(id);
+            return rentalToCreate;
+        }
     }
  
 

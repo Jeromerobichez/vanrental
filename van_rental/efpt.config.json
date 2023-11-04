@@ -44,6 +44,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[deleteClient]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[GetAvailablesVehicles]",
          "ObjectType": 1
       },

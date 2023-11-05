@@ -31,6 +31,19 @@ namespace vanRental.Services
                 throw new Exception(ex.Message);
             }
         }
+        public List<VehicleModels> GetModelsInfos()
+        {
+            try
+            {
+                var models = _context.VehicleModels.ToList();
+
+                return models;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public Vehicles GetOneVehicle(int id)
         {
             try

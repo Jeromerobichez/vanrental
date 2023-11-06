@@ -31,8 +31,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("AllowAnyOriginPolicy");
 }
-
+app.UseCors("AllowAnyOriginPolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

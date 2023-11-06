@@ -75,12 +75,13 @@ namespace vanRental.Services
         }
 
 
-        public async Task<List<GetAvailablesVehiclesResult>> getAvailableVehiclesBetweenTwoDates(DateTime departureDate, DateTime returnDate)
+        public async Task<List<GetAvailablesVehiclesResult>> getAvailableVehiclesBetweenTwoDates(string departureDate, string returnDate)
         {
-           
-                if (returnDate > departureDate)
+            var parsedDepartureDate = DateTime.Parse(departureDate);
+            var parsedRetruneDate = DateTime.Parse(returnDate);
+            if (parsedRetruneDate > parsedDepartureDate)
                 {
-                    var vehicleResult = await _context.Procedures.GetAvailablesVehiclesAsync(departureDate, returnDate);
+                    var vehicleResult = await _context.Procedures.GetAvailablesVehiclesAsync(parsedDepartureDate, parsedRetruneDate);
               
 
                 return vehicleResult;

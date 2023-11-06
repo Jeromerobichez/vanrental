@@ -59,11 +59,12 @@ namespace vanRental.Controllers
         [HttpGet("GetAvailableVehicles")]
         public async Task<IActionResult> GetAvailableVehicles(string departureDate, string returnDate)
         {
-            var availableVehicle = await _vanRentalService.getAvailableVehiclesBetweenTwoDates(departureDate, returnDate);
-            return Ok(availableVehicle);
+            var availableVehicleAndModels = await _vanRentalService.getAvailableVehiclesBetweenTwoDates(departureDate, returnDate);
+            
+            return Ok(availableVehicleAndModels);
         }
         [HttpGet("GetModelsById")]
-        public async Task<IActionResult> GetModelsById([FromQuery] List<int> ids)
+        public async Task<IActionResult> GetModelsById([FromHeader] List<int> ids)
         {
             var availableModels = await _vanRentalService.GetInfosModelsById(ids);
             return Ok(availableModels);

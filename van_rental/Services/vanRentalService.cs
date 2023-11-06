@@ -119,16 +119,29 @@ namespace vanRental.Services
         }
 
 
-        public async Task<List<GetAvailablesVehiclesResult>> getAvailableVehiclesBetweenTwoDates(string departureDate, string returnDate)
+        public async Task<availableVehiclesAndModels> getAvailableVehiclesBetweenTwoDates(string departureDate, string returnDate)
         {
+            var vehiclesAndModels = new availableVehiclesAndModels();
             var parsedDepartureDate = DateTime.Parse(departureDate);
             var parsedRetruneDate = DateTime.Parse(returnDate);
             if (parsedRetruneDate > parsedDepartureDate)
                 {
                     var vehicleResult = await _context.Procedures.GetAvailablesVehiclesAsync(parsedDepartureDate, parsedRetruneDate);
-              
+                var modelsAvailable = new List<getInfosOneModelResult>();
+                vehiclesAndModels.VehiclesAvailable = vehicleResult;
+                HashSet<int> uniqueModelIds = new HashSet<int>();
+                foreach (var vehicle in vehicleResult)
+                {
+                    uniqueModelIds.Add(vehicle.model_id);
+                }
+                foreach (int item in uniqueModelIds)
+                {
+                  var  model = await GetInfosOneModel(item);
+                    modelsAvailable.Add(model);
+                }
+                vehiclesAndModels.ModelsAvailable = modelsAvailable;
 
-                return vehicleResult;
+                return vehiclesAndModels;
             }
             else throw new Exception("la date de retour est antérieure à la date de départ");
 

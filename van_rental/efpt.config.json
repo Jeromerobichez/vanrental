@@ -64,6 +64,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[getInfosOneModel]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[getInfosOneVehicle]",
          "ObjectType": 1
       },

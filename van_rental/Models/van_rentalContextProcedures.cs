@@ -35,6 +35,7 @@ namespace van_rental.Models
         protected void OnModelCreatingGeneratedProcedures(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<GetAvailablesVehiclesResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<getInfosOneModelResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<getInfosOneVehicleResult>().HasNoKey().ToView(null);
         }
     }
@@ -307,6 +308,32 @@ namespace van_rental.Models
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<GetAvailablesVehiclesResult>("EXEC @returnValue = [dbo].[GetAvailablesVehicles] @departureDate, @endDate", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<getInfosOneModelResult>> getInfosOneModelAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "id",
+                    Value = id ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<getInfosOneModelResult>("EXEC @returnValue = [dbo].[getInfosOneModel] @id", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

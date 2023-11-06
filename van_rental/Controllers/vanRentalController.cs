@@ -44,6 +44,12 @@ namespace vanRental.Controllers
             var models = _vanRentalService.GetModelsInfos();
             return Ok(models);
         }
+        [HttpGet("GetOneModelById")]
+        public async Task<IActionResult> GetModelById(int id)
+        {
+            var oneModel = await _vanRentalService.GetInfosOneModel(id);
+            return Ok(oneModel);
+        }
         //[HttpGet("GetOneVehicleById")]
         //public async Task<IActionResult> GetOneVehicleById(int id)
         //{
@@ -55,6 +61,12 @@ namespace vanRental.Controllers
         {
             var availableVehicle = await _vanRentalService.getAvailableVehiclesBetweenTwoDates(departureDate, returnDate);
             return Ok(availableVehicle);
+        }
+        [HttpGet("GetModelsById")]
+        public async Task<IActionResult> GetModelsById([FromQuery] List<int> ids)
+        {
+            var availableModels = await _vanRentalService.GetInfosModelsById(ids);
+            return Ok(availableModels);
         }
         [HttpGet("GetInfosForOneOrMoreVehicles")]
         public async Task <List<getInfosOneVehicleResult>> GetInfosForOneOrMoreVehicles([FromQuery] int[] idsOfAvaiblablesVehicles)

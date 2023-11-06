@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace vanRental.Services
 {
@@ -44,6 +45,7 @@ namespace vanRental.Services
                 throw new Exception(ex.Message);
             }
         }
+       
         public Vehicles GetOneVehicle(int id)
         {
             try
@@ -66,6 +68,48 @@ namespace vanRental.Services
                 var vehicle = vehicleResult.FirstOrDefault();
 
                 return vehicle;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+        public async Task<getInfosOneModelResult> GetInfosOneModel(int id)
+        {
+            try
+            {
+              
+                var modelResult = await _context.Procedures.getInfosOneModelAsync(id);
+                // On doit attendre que la tâche soit terminée pour pouvoir appeler .FirstOrDefault()
+               
+                var model = modelResult.FirstOrDefault();
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+        public async Task <List<getInfosOneModelResult>> GetInfosModelsById(List<int> ids)
+        {
+            try
+            {
+               var selectedModels = new List<getInfosOneModelResult>();
+                foreach (int id in ids)
+                {
+                    var modelResult = await _context.Procedures.getInfosOneModelAsync(id);
+                    var model = modelResult.FirstOrDefault();
+                    selectedModels.Add(model);
+                }
+              
+                // On doit attendre que la tâche soit terminée pour pouvoir appeler .FirstOrDefault()
+
+             
+
+                return selectedModels;
             }
             catch (Exception ex)
             {

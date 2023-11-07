@@ -97,7 +97,6 @@ public partial class van_rentalContext : DbContext
             entity.HasKey(e => e.RequestId).HasName("PK__Requests__33A8517A9421DD6D");
 
             entity.Property(e => e.DepartureDateRequested).HasColumnType("date");
-            entity.Property(e => e.ModelId).HasMaxLength(50);
             entity.Property(e => e.ModelVehicleRequested).HasMaxLength(50);
             entity.Property(e => e.ReturnDateRequested).HasColumnType("date");
         });

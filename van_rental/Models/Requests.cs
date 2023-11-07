@@ -15,7 +15,7 @@ public partial class Requests
 
     public string ModelVehicleRequested { get; set; }
 
-    public string ModelId { get; set; }
+    public int? ModelId { get; set; }
 
     public string MessageRequest { get; set; }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 using van_rental.Models;
 using vanRental.Services;
+
 
 namespace van_rental.requestControllers
 {
@@ -18,19 +20,11 @@ namespace van_rental.requestControllers
             _vanRentalService = vanRentalService;
         }
         [HttpPost("SendRentalRequest")]
-        public IActionResult SendRentalRequest(string dateDepart, string dateRetour, string modeleVehicule, string id, string message)
+        public IActionResult SendRentalRequest([FromBody] JsonElement theRequest)
         {
-
-        var reservation = new Requests
-            {
-            DepartureDateRequested = DateTime.Parse(dateDepart),
-            ReturnDateRequested = DateTime.Parse(dateRetour),
-            ModelVehicleRequested = modeleVehicule,
-            ModelId = id,
-            MessageRequest = message
-            };
-
-            _context.Requests.Add(reservation);
+            var newRequest = JsonSerializer.Deserialize<Requests>(theRequest.GetRawText());
+           
+            _context.Requests.Add(newRequest);
             _context.SaveChanges(); // Enregistre les modifications dans la base de données
 
             return Ok("Réservation enregistrée avec succès.");

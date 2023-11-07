@@ -36,6 +36,7 @@ namespace van_rental.Models
         {
             modelBuilder.Entity<GetAvailablesVehiclesResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<getInfosOneModelResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<getInfosOneModelAndPriceResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<getInfosOneVehicleResult>().HasNoKey().ToView(null);
         }
     }
@@ -334,6 +335,44 @@ namespace van_rental.Models
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<getInfosOneModelResult>("EXEC @returnValue = [dbo].[getInfosOneModel] @id", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<getInfosOneModelAndPriceResult>> getInfosOneModelAndPriceAsync(int? id, DateTime? departure, DateTime? @return, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "id",
+                    Value = id ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "departure",
+                    Value = departure ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Date,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "return",
+                    Value = @return ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Date,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<getInfosOneModelAndPriceResult>("EXEC @returnValue = [dbo].[getInfosOneModelAndPrice] @id, @departure, @return", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

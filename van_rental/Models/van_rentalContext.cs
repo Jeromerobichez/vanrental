@@ -144,6 +144,7 @@ public partial class van_rentalContext : DbContext
         });
 
         OnModelCreatingGeneratedProcedures(modelBuilder);
+        OnModelCreatingGeneratedFunctions(modelBuilder);
         OnModelCreatingPartial(modelBuilder);
     }
 

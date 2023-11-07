@@ -93,6 +93,24 @@ namespace vanRental.Services
             }
 
         }
+        public async Task<getInfosOneModelAndPriceResult> GetInfosOneModelAndPrice(int id, DateTime departureDate, DateTime returnDate)
+        {
+            try
+            {
+
+                var modelAndPriceResult = await _context.Procedures.getInfosOneModelAndPriceAsync(id, departureDate, returnDate);
+                // On doit attendre que la tâche soit terminée pour pouvoir appeler .FirstOrDefault()
+
+                var modelAndPrice = modelAndPriceResult.FirstOrDefault();
+
+                return modelAndPrice;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
         public async Task <List<getInfosOneModelResult>> GetInfosModelsById(List<int> ids)
         {
             try
@@ -123,11 +141,11 @@ namespace vanRental.Services
         {
             var vehiclesAndModels = new availableVehiclesAndModels();
             var parsedDepartureDate = DateTime.Parse(departureDate);
-            var parsedRetruneDate = DateTime.Parse(returnDate);
-            if (parsedRetruneDate > parsedDepartureDate)
+            var parsedReturnDate = DateTime.Parse(returnDate);
+            if (parsedReturnDate > parsedDepartureDate)
                 {
-                    var vehicleResult = await _context.Procedures.GetAvailablesVehiclesAsync(parsedDepartureDate, parsedRetruneDate);
-                var modelsAvailable = new List<getInfosOneModelResult>();
+                    var vehicleResult = await _context.Procedures.GetAvailablesVehiclesAsync(parsedDepartureDate, parsedReturnDate);
+                var modelsAvailable = new List<getInfosOneModelAndPriceResult>();
                 vehiclesAndModels.VehiclesAvailable = vehicleResult;
                 HashSet<int> uniqueModelIds = new HashSet<int>();
                 foreach (var vehicle in vehicleResult)
@@ -136,7 +154,7 @@ namespace vanRental.Services
                 }
                 foreach (int item in uniqueModelIds)
                 {
-                  var  model = await GetInfosOneModel(item);
+                  var  model = await GetInfosOneModelAndPrice(item, parsedDepartureDate, parsedReturnDate);
                     modelsAvailable.Add(model);
                 }
                 vehiclesAndModels.ModelsAvailable = modelsAvailable;

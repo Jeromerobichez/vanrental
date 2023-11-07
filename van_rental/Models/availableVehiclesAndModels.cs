@@ -8,7 +8,7 @@ public partial class availableVehiclesAndModels
 {
     public List<GetAvailablesVehiclesResult> VehiclesAvailable { get; set; }
 
-    public List <getInfosOneModelResult> ModelsAvailable { get; set; }
+    public List <getInfosOneModelAndPriceResult> ModelsAvailable { get; set; }
 
 
 }

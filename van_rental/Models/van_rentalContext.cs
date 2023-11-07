@@ -19,6 +19,8 @@ public partial class van_rentalContext : DbContext
 
     public virtual DbSet<Rentals> Rentals { get; set; }
 
+    public virtual DbSet<Requests> Requests { get; set; }
+
     public virtual DbSet<VehicleModels> VehicleModels { get; set; }
 
     public virtual DbSet<Vehicles> Vehicles { get; set; }
@@ -88,6 +90,16 @@ public partial class van_rentalContext : DbContext
                 .HasForeignKey(d => d.VehicleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_vehicle_id");
+        });
+
+        modelBuilder.Entity<Requests>(entity =>
+        {
+            entity.HasKey(e => e.RequestId).HasName("PK__Requests__33A8517A9421DD6D");
+
+            entity.Property(e => e.DepartureDateRequested).HasColumnType("date");
+            entity.Property(e => e.ModelId).HasMaxLength(50);
+            entity.Property(e => e.ModelVehicleRequested).HasMaxLength(50);
+            entity.Property(e => e.ReturnDateRequested).HasColumnType("date");
         });
 
         modelBuilder.Entity<VehicleModels>(entity =>

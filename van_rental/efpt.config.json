@@ -80,6 +80,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[GetRentalsInfos]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[UpdateAClient]",
          "ObjectType": 1
       },

@@ -38,6 +38,7 @@ namespace van_rental.Models
             modelBuilder.Entity<getInfosOneModelResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<getInfosOneModelAndPriceResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<getInfosOneVehicleResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<GetRentalsInfosResult>().HasNoKey().ToView(null);
         }
     }
 
@@ -399,6 +400,26 @@ namespace van_rental.Models
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<getInfosOneVehicleResult>("EXEC @returnValue = [dbo].[getInfosOneVehicle] @id", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<GetRentalsInfosResult>> GetRentalsInfosAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<GetRentalsInfosResult>("EXEC @returnValue = [dbo].[GetRentalsInfos]", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

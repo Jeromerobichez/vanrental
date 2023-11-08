@@ -42,26 +42,7 @@ namespace van_rental.vehiclesControllers
         public async Task<IActionResult> PatchVehicle([FromBody] JsonElement updateVehicle)
         {
             var updateData = JsonSerializer.Deserialize<Vehicles>(updateVehicle);
-            //var dataToSend = new Vehicles();
-           
-            //dataToSend.HasBeenSold = updateData.HasBeenSold;
-            //dataToSend.AutomaticGear = updateData.AutomaticGear;
-            //dataToSend.Comments = updateData.Comments;
-            //dataToSend.Km = updateData.Km;
-            //dataToSend.RegistrationDate = updateData.RegistrationDate;
-            //dataToSend.Id = updateData.Id;
             
-            var toto = 2;
-            var tata = new Vehicles();
-            //int id,
-            //    DateTime? registrationDate,
-            //    int? km,
-            //    bool? automaticGear,
-            //    string? comments, 
-            //    int? modelId, 
-            //    int? colorId,
-            //    bool? hasBeenSold
-            //    )
             if (updateData != null)
             {
                 var modifiedVehicle = await _vanRentalService.ModifyAVehicle(updateData.Id, updateData.RegistrationDate, updateData.Km, updateData.AutomaticGear, updateData.Comments, updateData.ModelId, updateData.ColorId, updateData.HasBeenSold);

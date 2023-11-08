@@ -19,13 +19,19 @@ namespace vanRental.Services
             _context = context;
 
         }
-        public List<Vehicles> GetDataOfVehicles()
+        public async Task<List<getInfosOneVehicleResult>> GetDataOfVehicles()
         {
             try
             {
-                var vehicles = _context.Vehicles.ToList();
+                var vehiclesData = new List<getInfosOneVehicleResult>();
+                var vehiclesIds = _context.Vehicles.Select(x => x.Id).ToList();
+                foreach (var vehicleId in vehiclesIds)
+                {
+                    var vehicle = await GetOneVehicleAllInfos(vehicleId);
+                    vehiclesData.Add(vehicle);
+                }
 
-                return vehicles;
+                return vehiclesData;
             }
             catch (Exception ex)
             {
@@ -119,12 +125,12 @@ namespace vanRental.Services
                 foreach (int id in ids)
                 {
                     var modelResult = await _context.Procedures.getInfosOneModelAsync(id);
+                    // On doit attendre que la tâche soit terminée pour pouvoir appeler .FirstOrDefault()
                     var model = modelResult.FirstOrDefault();
                     selectedModels.Add(model);
                 }
               
-                // On doit attendre que la tâche soit terminée pour pouvoir appeler .FirstOrDefault()
-
+              
              
 
                 return selectedModels;

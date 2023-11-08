@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using van_rental.Models;
 using vanRental.Services;
+using System.Text.Json;
 
 namespace van_rental.vehiclesControllers
 {
@@ -15,6 +16,12 @@ namespace van_rental.vehiclesControllers
         {
             _context = context;
             _vanRentalService = vanRentalService;
+        }
+        [HttpGet("GetAllVehicles")]
+        public async Task<IActionResult> GetAllVehicles()
+        {
+            var vehicles = await _vanRentalService.GetDataOfVehicles();
+            return Ok(vehicles);
         }
         [HttpGet("GetOneVehicleById")]
         public async Task<IActionResult> GetOneVehicleById(int id)

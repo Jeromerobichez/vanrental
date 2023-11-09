@@ -13,11 +13,16 @@ namespace van_rental.rentalsControllers
     {
         private readonly van_rentalContext _context;
         private readonly vanRentalService _vanRentalService;
+        private readonly rentalsService _rentalsService;
 
-        public rentalsController(van_rentalContext context, vanRentalService vanRentalService)
+        public rentalsController(van_rentalContext context,
+            vanRentalService vanRentalService,
+            rentalsService rentalsService
+            )
         {
             _context = context;
             _vanRentalService = vanRentalService;
+            _rentalsService = rentalsService;
         }
         [HttpGet("GetAllRentals")]
         public async Task<IActionResult> GetAllRentals()
@@ -30,7 +35,7 @@ namespace van_rental.rentalsControllers
         public async Task<IActionResult> PostNewRental([FromQuery] DateTime startDate, DateTime endDate, int clientId, int vehicleId)
         {
 
-            var newRental = await _vanRentalService.CreateNewRental(startDate, endDate, clientId, vehicleId);
+            var newRental = await _rentalsService.CreateNewRental(startDate, endDate, clientId, vehicleId);
 
 
             return Ok(newRental);
@@ -44,7 +49,7 @@ namespace van_rental.rentalsControllers
         int? vehicleId)
         {
 
-            var modifiedRental = await _vanRentalService.ModifyARental(id, startDate, endDate, clientId, vehicleId);
+            var modifiedRental = await _rentalsService.ModifyARental(id, startDate, endDate, clientId, vehicleId);
 
 
             return Ok(modifiedRental);
@@ -53,7 +58,7 @@ namespace van_rental.rentalsControllers
         public async Task<IActionResult> DeleteARental(int id)
         {
 
-            var deletedRental = await _vanRentalService.DeleteARental(id);
+            var deletedRental = await _rentalsService.DeleteARental(id);
 
 
             return Ok(deletedRental);

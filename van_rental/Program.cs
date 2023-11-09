@@ -18,6 +18,8 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddControllers();
 builder.Services.AddScoped<vanRentalService>();
+builder.Services.AddScoped<rentalsService>();
+builder.Services.AddScoped<vehiclesService>();
 builder.Services.AddDbContext<van_rentalContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

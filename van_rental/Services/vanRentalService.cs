@@ -14,30 +14,14 @@ namespace vanRental.Services
     {
         private readonly van_rentalContext _context;
         private readonly van_rentalContext _contextProcedure;
-        public vanRentalService(van_rentalContext context)
+        private readonly vehiclesService _vehiclesService;
+        public vanRentalService(van_rentalContext context, vehiclesService vehiclesService)
         {
             _context = context;
+            _vehiclesService = vehiclesService;
 
         }
-        public async Task<List<getInfosOneVehicleResult>> GetDataOfVehicles()
-        {
-            try
-            {
-                var vehiclesData = new List<getInfosOneVehicleResult>();
-                var vehiclesIds = _context.Vehicles.Select(x => x.Id).ToList();
-                foreach (var vehicleId in vehiclesIds)
-                {
-                    var vehicle = await GetOneVehicleAllInfos(vehicleId);
-                    vehiclesData.Add(vehicle);
-                }
-
-                return vehiclesData;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        
         public List<VehicleModels> GetModelsInfos()
         {
             try
@@ -52,35 +36,8 @@ namespace vanRental.Services
             }
         }
        
-        public Vehicles GetOneVehicle(int id)
-        {
-            try
-            {
-                var vehicle = _context.Vehicles.Where(x => x.Id == id).First();
-                return vehicle;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-        }
-        public async Task<getInfosOneVehicleResult> GetOneVehicleAllInfos(int id)
-        {
-            try
-            {
-                var vehicleResult = await _context.Procedures.getInfosOneVehicleAsync(id);
-                // On doit attendre que la tâche soit terminée pour pouvoir appeler .FirstOrDefault()
-                var vehicle = vehicleResult.FirstOrDefault();
-
-                return vehicle;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-        }
+        
+        
         public async Task<getInfosOneModelResult> GetInfosOneModel(int id)
         {
             try
@@ -99,24 +56,7 @@ namespace vanRental.Services
             }
 
         }
-        public async Task<getInfosOneModelAndPriceResult> GetInfosOneModelAndPrice(int id, DateTime departureDate, DateTime returnDate)
-        {
-            try
-            {
-
-                var modelAndPriceResult = await _context.Procedures.getInfosOneModelAndPriceAsync(id, departureDate, returnDate);
-                // On doit attendre que la tâche soit terminée pour pouvoir appeler .FirstOrDefault()
-
-                var modelAndPrice = modelAndPriceResult.FirstOrDefault();
-
-                return modelAndPrice;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-        }
+        
         public async Task <List<getInfosOneModelResult>> GetInfosModelsById(List<int> ids)
         {
             try
@@ -143,56 +83,19 @@ namespace vanRental.Services
         }
 
 
-        public async Task<availableVehiclesAndModels> getAvailableVehiclesBetweenTwoDates(string departureDate, string returnDate)
-        {
-            var vehiclesAndModels = new availableVehiclesAndModels();
-            var parsedDepartureDate = DateTime.Parse(departureDate);
-            var parsedReturnDate = DateTime.Parse(returnDate);
-            if (parsedReturnDate > parsedDepartureDate)
-                {
-                    var vehicleResult = await _context.Procedures.GetAvailablesVehiclesAsync(parsedDepartureDate, parsedReturnDate);
-                var modelsAvailable = new List<getInfosOneModelAndPriceResult>();
-                vehiclesAndModels.VehiclesAvailable = vehicleResult;
-                HashSet<int> uniqueModelIds = new HashSet<int>();
-                foreach (var vehicle in vehicleResult)
-                {
-                    uniqueModelIds.Add(vehicle.model_id);
-                }
-                foreach (int item in uniqueModelIds)
-                {
-                  var  model = await GetInfosOneModelAndPrice(item, parsedDepartureDate, parsedReturnDate);
-                    modelsAvailable.Add(model);
-                }
-                vehiclesAndModels.ModelsAvailable = modelsAvailable;
-
-                return vehiclesAndModels;
-            }
-            else throw new Exception("la date de retour est antérieure à la date de départ");
-
-
-        }
+       
 
         public Task<IEnumerable<getInfosOneVehicleResult>> GetInfosForOneOrMoreVehicles(int[] idsOfAvaiblablesVehicles)
         {
 
 
-           var availablesVehicules =  idsOfAvaiblablesVehicles.Select(id => GetOneVehicleAllInfos(id));
+           var availablesVehicules =  idsOfAvaiblablesVehicles.Select(id => _vehiclesService.GetOneVehicleAllInfos(id));
 
 
             return (Task<IEnumerable<getInfosOneVehicleResult>>)availablesVehicules;
         }
-        public async Task<int> CreateNewRental(DateTime startDate, DateTime endDate, int clientId, int vehicleId)
-        {
-
-            var rentalToCreate = await _context.Procedures.createNewRentalAsync(startDate, endDate, clientId, vehicleId);
-            return rentalToCreate;
-        }
-        public async Task<int> ModifyARental(int id, DateTime? startDate, DateTime? endDate, int? clientId, int? vehicleId)
-        {
-
-            var rentalToCreate = await _context.Procedures.updateARentalAsync(id, startDate, endDate, clientId, vehicleId);
-            return rentalToCreate;
-        }
+        
+       
         public async Task<int> CreateNewClient(string lastName, string firstName, string tel, string mail)
         {
 
@@ -211,31 +114,10 @@ namespace vanRental.Services
             var clientToDelete = await _context.Procedures.deleteClientAsync(id);
             return clientToDelete;
         }
-        public async Task<int> DeleteARental(int id)
-        {
-
-            var rentalToDelete = await _context.Procedures.deleteRentalAsync(id);
-            return rentalToDelete;
-        }
         
-         public async Task<int> CreateNewVehicle(DateTime registrationDate, int km, bool automaticGear, string? comments, int modelId, int colorId, bool hasBeenSold)
-        {
-
-            var newVehicleToCreate = await _context.Procedures.createNewVehicleAsync(registrationDate, km, automaticGear, comments, modelId, colorId, hasBeenSold);
-            return newVehicleToCreate;
-        }
-        public async Task<int> ModifyAVehicle(int id, DateTime? registrationDate, int? km, bool? automaticGear, string? comments, int? modelId, int? colorId, bool? hasBeenSold)
-        {
-
-            var vehicleToModdify = await _context.Procedures.updateVehicleAsync(id, registrationDate, km, automaticGear, comments, modelId, colorId, hasBeenSold);
-            return vehicleToModdify;
-        }
-        public async Task<int> DeleteVehicle(int id)
-        {
-
-            var vehicleToDelete = await _context.Procedures.deleteVehicleAsync(id);
-            return vehicleToDelete;
-        }
+        
+         
+        
     }
  
 

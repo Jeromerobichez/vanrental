@@ -26,6 +26,38 @@ namespace van_rental.rentalsControllers
 
             return Ok(allRentals);
         }
+        [HttpPost("PostNewRental")]
+        public async Task<IActionResult> PostNewRental([FromQuery] DateTime startDate, DateTime endDate, int clientId, int vehicleId)
+        {
+
+            var newRental = await _vanRentalService.CreateNewRental(startDate, endDate, clientId, vehicleId);
+
+
+            return Ok(newRental);
+        }
+        [HttpPatch("UpdateARental")]
+        public async Task<IActionResult> PatchRental([FromQuery]
+        int id,
+        DateTime? startDate,
+        DateTime? endDate,
+        int? clientId,
+        int? vehicleId)
+        {
+
+            var modifiedRental = await _vanRentalService.ModifyARental(id, startDate, endDate, clientId, vehicleId);
+
+
+            return Ok(modifiedRental);
+        }
+        [HttpDelete("DeleteARental")]
+        public async Task<IActionResult> DeleteARental(int id)
+        {
+
+            var deletedRental = await _vanRentalService.DeleteARental(id);
+
+
+            return Ok(deletedRental);
+        }
     }
 
 }

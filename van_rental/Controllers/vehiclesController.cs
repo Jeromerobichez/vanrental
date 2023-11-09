@@ -29,6 +29,25 @@ namespace van_rental.vehiclesControllers
             var vehicle = await _vanRentalService.GetOneVehicleAllInfos(id);
             return Ok(vehicle);
         }
+        [HttpGet("GetInfosForOneOrMoreVehicles")]
+        public async Task<List<getInfosOneVehicleResult>> GetInfosForOneOrMoreVehicles([FromQuery] int[] idsOfAvaiblablesVehicles)
+        {
+
+            var availablesVehicules = new List<getInfosOneVehicleResult>();
+            foreach (int id in idsOfAvaiblablesVehicles)
+            {
+                availablesVehicules.Add(await _vanRentalService.GetOneVehicleAllInfos(id));
+            };
+
+            return availablesVehicules;
+        }
+        [HttpGet("GetAvailableVehicles")]
+        public async Task<IActionResult> GetAvailableVehicles(string departureDate, string returnDate)
+        {
+            var availableVehicleAndModels = await _vanRentalService.getAvailableVehiclesBetweenTwoDates(departureDate, returnDate);
+
+            return Ok(availableVehicleAndModels);
+        }
         [HttpPost("PostNewVehicle")]
         public async Task<IActionResult> PostNewVehicle( DateTime registrationDate, int km, bool automaticGear, string? comments, int modelId, int colorId, bool hasBeenSold)
         {

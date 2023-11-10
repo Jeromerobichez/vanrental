@@ -36,19 +36,20 @@ namespace van_rental.clientsControllers
             return Ok(newClient);
         }
         [HttpPatch("UpdateAClient")]
-        public async Task<IActionResult> PatchClient([FromQuery]
-        int id,
-       string? lastName,
-       string? firstName,
-       string? tel,
-       string? mail
-            )
+        public async Task<IActionResult> PatchClient([FromBody] JsonElement updatedData)
+        
         {
+            var updatedClient = JsonSerializer.Deserialize<Clients>(updatedData);
+      
+            if (updatedClient != null)
+            {
+                var modifiedClient = await _vanRentalService.ModifyAClient(updatedClient.Id, updatedClient.Lastname, updatedClient.Firstname, updatedClient.Tel, updatedClient.Mail);
+                return Ok(modifiedClient);
+            }
+           else  return BadRequest("Pas de données d'update fournies");
 
-            var modifiedClient = await _vanRentalService.ModifyAClient(id, lastName, firstName, tel, mail);
 
 
-            return Ok(modifiedClient);
         }
         [HttpDelete("DeleteAClient")]
         public async Task<IActionResult> DeleteAClient(int id)

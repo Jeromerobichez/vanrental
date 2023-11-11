@@ -27,13 +27,13 @@ namespace van_rental.clientsControllers
             return Ok(allClients);
         }
         [HttpPost("PostNewClient")]
-        public async Task<IActionResult> PostNewClient([FromQuery] string lastName, string firstName, string tel, string mail)
+        public async Task<IActionResult> PostNewClient([FromBody] JsonElement newClientJson )
         {
+            var deserializeClient = JsonSerializer.Deserialize<Clients>(newClientJson);
+            var newClient = await _vanRentalService.CreateNewClient(deserializeClient.Lastname , deserializeClient.Firstname, deserializeClient.Tel, deserializeClient.Mail);
 
-            var newClient = await _vanRentalService.CreateNewClient(lastName, firstName, tel, mail);
 
-
-            return Ok(newClient);
+            return StatusCode(200);
         }
         [HttpPatch("UpdateAClient")]
         public async Task<IActionResult> PatchClient([FromBody] JsonElement updatedData)

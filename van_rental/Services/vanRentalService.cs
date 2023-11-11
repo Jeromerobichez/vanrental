@@ -7,6 +7,7 @@ using static System.Net.Mime.MediaTypeNames;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 
 namespace vanRental.Services
 {
@@ -100,6 +101,7 @@ namespace vanRental.Services
         {
 
             var newClientToCreate = await _context.Procedures.createNewClientAsync(lastName, firstName, tel, mail);
+            var toto = 2;
             return newClientToCreate;
         }
         public async Task<int> ModifyAClient(int id, string? lastName, string?firstName, string? tel, string? mail)

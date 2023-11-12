@@ -41,18 +41,23 @@ namespace van_rental.rentalsControllers
             return Ok(newRental);
         }
         [HttpPatch("UpdateARental")]
-        public async Task<IActionResult> PatchRental([FromQuery]
-        int id,
-        DateTime? startDate,
-        DateTime? endDate,
-        int? clientId,
-        int? vehicleId)
+        public async Task<IActionResult> PatchRental([FromBody] JsonElement modifiedRental)
+        //int id,
+        //DateTime? startDate,
+        //DateTime? endDate,
+        //int? clientId,
+        //int? vehicleId)
         {
+            var deserializeRental = JsonSerializer.Deserialize<Rentals>(modifiedRental);
+            var modifiedRentalReadyToSend = await _rentalsService.ModifyARental(
+                deserializeRental.Id,
+                deserializeRental.DepartureDate,
+                deserializeRental.ReturnDate,
+                deserializeRental.ClientId,
+                deserializeRental.VehicleId);
 
-            var modifiedRental = await _rentalsService.ModifyARental(id, startDate, endDate, clientId, vehicleId);
 
-
-            return Ok(modifiedRental);
+            return Ok(modifiedRentalReadyToSend);
         }
         [HttpDelete("DeleteARental")]
         public async Task<IActionResult> DeleteARental(int id)

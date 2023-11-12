@@ -8,8 +8,8 @@ namespace van_rental.Models
     public partial class GetRentalsInfosResult
     {
         public int rental_id { get; set; }
-        public DateTime? departure_date { get; set; }
-        public DateTime? return_date { get; set; }
+        public DateTime departure_date { get; set; }
+        public DateTime return_date { get; set; }
         public int client_id { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }

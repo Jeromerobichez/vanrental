@@ -32,10 +32,11 @@ namespace van_rental.rentalsControllers
             return Ok(allRentals);
         }
         [HttpPost("PostNewRental")]
-        public async Task<IActionResult> PostNewRental([FromQuery] DateTime startDate, DateTime endDate, int clientId, int vehicleId)
+        public async Task<IActionResult> PostNewRental([FromBody] JsonElement NewRentalToPost)
+          
         {
-
-            var newRental = await _rentalsService.CreateNewRental(startDate, endDate, clientId, vehicleId);
+            var deserializedNewRental = JsonSerializer.Deserialize<Rentals>(NewRentalToPost);
+            var newRental = await _rentalsService.CreateNewRental(deserializedNewRental.DepartureDate, deserializedNewRental.ReturnDate, deserializedNewRental.ClientId, deserializedNewRental.VehicleId);
 
 
             return Ok(newRental);

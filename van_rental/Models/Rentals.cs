@@ -9,9 +9,9 @@ public partial class Rentals
 {
     public int Id { get; set; }
 
-    public DateTime? DepartureDate { get; set; }
+    public DateTime DepartureDate { get; set; }
 
-    public DateTime? ReturnDate { get; set; }
+    public DateTime ReturnDate { get; set; }
 
     public int ClientId { get; set; }
 

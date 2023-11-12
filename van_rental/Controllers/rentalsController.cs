@@ -43,11 +43,7 @@ namespace van_rental.rentalsControllers
         }
         [HttpPatch("UpdateARental")]
         public async Task<IActionResult> PatchRental([FromBody] JsonElement modifiedRental)
-        //int id,
-        //DateTime? startDate,
-        //DateTime? endDate,
-        //int? clientId,
-        //int? vehicleId)
+      
         {
             var deserializeRental = JsonSerializer.Deserialize<Rentals>(modifiedRental);
             var modifiedRentalReadyToSend = await _rentalsService.ModifyARental(

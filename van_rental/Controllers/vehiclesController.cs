@@ -2,6 +2,7 @@
 using van_rental.Models;
 using vanRental.Services;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace van_rental.vehiclesControllers
 {
@@ -51,10 +52,11 @@ namespace van_rental.vehiclesControllers
             return Ok(availableVehicleAndModels);
         }
         [HttpPost("PostNewVehicle")]
-        public async Task<IActionResult> PostNewVehicle( DateTime registrationDate, int km, bool automaticGear, string? comments, int modelId, int colorId, bool hasBeenSold)
+        public async Task<IActionResult> PostNewVehicle([FromBody] JsonElement NewVehicle)
+    
         {
-
-            var newClient = await _vehiclesService.CreateNewVehicle(registrationDate, km, automaticGear, comments, modelId, colorId, hasBeenSold);
+              var deserializeVehicle = JsonSerializer.Deserialize<Vehicles>(NewVehicle.GetRawText());
+        var newClient = await _vehiclesService.CreateNewVehicle(deserializeVehicle.RegistrationDate , deserializeVehicle.Km, deserializeVehicle.AutomaticGear, deserializeVehicle.Comments, deserializeVehicle.ModelId, deserializeVehicle.ColorId, false);
 
 
             return Ok(newClient);

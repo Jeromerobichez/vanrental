@@ -113,16 +113,20 @@ namespace vanRental.Services
 
 
         }
-        public async Task<int> CreateNewVehicle(DateTime registrationDate, int km, bool automaticGear, string? comments, int modelId, int colorId, bool hasBeenSold)
+        public async Task<int> CreateNewVehicle(DateTime? registrationDate, int? km, bool? automaticGear, string? comments, int modelId, int colorId, bool hasBeenSold)
         {
 
             var newVehicleToCreate = await _context.Procedures.createNewVehicleAsync(registrationDate, km, automaticGear, comments, modelId, colorId, hasBeenSold);
+
             return newVehicleToCreate;
         }
         public async Task<int> ModifyAVehicle(int id, DateTime? registrationDate, int? km, bool? automaticGear, string? comments, int? modelId, int? colorId, bool? hasBeenSold)
         {
 
             var vehicleToModdify = await _context.Procedures.updateVehicleAsync(id, registrationDate, km, automaticGear, comments, modelId, colorId, hasBeenSold);
+
+
+            var toto = 12; 
             return vehicleToModdify;
         }
         public async Task<int> DeleteVehicle(int id)

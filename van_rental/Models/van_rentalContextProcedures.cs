@@ -175,7 +175,7 @@ namespace van_rental.Models
                 new SqlParameter
                 {
                     ParameterName = "comments",
-                    Size = 1,
+                    Size = 255,
                     Value = comments ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },

@@ -55,7 +55,7 @@ namespace van_rental.vehiclesControllers
         public async Task<IActionResult> PostNewVehicle([FromBody] JsonElement NewVehicle)
     
         {
-              var deserializeVehicle = JsonSerializer.Deserialize<Vehicles>(NewVehicle.GetRawText());
+              var deserializeVehicle = JsonSerializer.Deserialize<Vehicles>(NewVehicle);
         var newClient = await _vehiclesService.CreateNewVehicle(deserializeVehicle.RegistrationDate , deserializeVehicle.Km, deserializeVehicle.AutomaticGear, deserializeVehicle.Comments, deserializeVehicle.ModelId, deserializeVehicle.ColorId, false);
 
 

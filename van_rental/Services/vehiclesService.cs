@@ -67,13 +67,15 @@ namespace vanRental.Services
             }
 
         }
-        public async Task<getInfosOneModelAndPriceResult> GetInfosOneModelAndPrice(int id, DateTime departureDate, DateTime returnDate)
+        public async Task<getInfosOneModelAndPriceResult> GetInfosOneModelAndPrice(
+            int id,
+            DateTime departureDate,
+            DateTime returnDate)
         {
             try
             {
 
                 var modelAndPriceResult = await _context.Procedures.getInfosOneModelAndPriceAsync(id, departureDate, returnDate);
-                // On doit attendre que la tâche soit terminée pour pouvoir appeler .FirstOrDefault()
 
                 var modelAndPrice = modelAndPriceResult.FirstOrDefault();
 

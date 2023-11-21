@@ -14,6 +14,12 @@ public partial class Requests
     public DateTime? ReturnDateRequested { get; set; }
 
     public string ModelVehicleRequested { get; set; }
+    
+    public string ClientName { get; set; }
+
+    public string ClientEmail { get; set; }
+
+    public string ClientTel { get; set; }
 
     public int? ModelId { get; set; }
 

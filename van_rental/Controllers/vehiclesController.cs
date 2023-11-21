@@ -64,7 +64,7 @@ namespace van_rental.vehiclesControllers
         [HttpPatch("UpdateVehicle")]
         public async Task<IActionResult> PatchVehicle([FromBody] JsonElement updateVehicle)
         {
-            var updateData = JsonSerializer.Deserialize<Vehicles>(updateVehicle.GetRawText());
+            var updateData = JsonSerializer.Deserialize<Vehicles>(updateVehicle);
             if (updateData != null)
             {
                 var modifiedVehicle = await _vehiclesService.ModifyAVehicle(updateData.Id, updateData.RegistrationDate, updateData.Km, updateData.AutomaticGear, updateData.Comments, updateData.ModelId, updateData.ColorId, updateData.HasBeenSold);

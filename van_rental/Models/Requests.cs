@@ -24,4 +24,6 @@ public partial class Requests
     public int? ModelId { get; set; }
 
     public string MessageRequest { get; set; }
+
+    public DateTime request_date { get; set; }
 }

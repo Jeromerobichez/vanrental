@@ -23,6 +23,7 @@ namespace van_rental.requestControllers
         public IActionResult SendRentalRequest([FromBody] JsonElement theRequest)
         {
             var newRequest = JsonSerializer.Deserialize<Requests>(theRequest.GetRawText());
+            newRequest.request_date = DateTime.UtcNow;
            
             _context.Requests.Add(newRequest);
             _context.SaveChanges(); // Enregistre les modifications dans la base de données

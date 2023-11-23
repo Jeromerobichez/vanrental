@@ -19,5 +19,15 @@ public partial class VehicleModels
 
     public int? PricePerDay { get; set; }
 
+    public int? NbLuggage { get; set; }
+
+    public bool? Heating { get; set; }
+
+    public int? EnginePower { get; set; }
+
+    public int? Height { get; set; }
+
+    public string PresentationText { get; set; }
+
     public virtual ICollection<Vehicles> Vehicles { get; set; } = new List<Vehicles>();
 }

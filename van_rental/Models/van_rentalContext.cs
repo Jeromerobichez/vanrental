@@ -96,8 +96,20 @@ public partial class van_rentalContext : DbContext
         {
             entity.HasKey(e => e.RequestId).HasName("PK__Requests__33A8517A9421DD6D");
 
+            entity.Property(e => e.ClientEmail)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ClientName)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.ClientTel)
+                .HasMaxLength(20)
+                .IsUnicode(false);
             entity.Property(e => e.DepartureDateRequested).HasColumnType("date");
             entity.Property(e => e.ModelVehicleRequested).HasMaxLength(50);
+            entity.Property(e => e.RequestDate)
+                .HasColumnType("datetime")
+                .HasColumnName("request_date");
             entity.Property(e => e.ReturnDateRequested).HasColumnType("date");
         });
 
@@ -108,16 +120,24 @@ public partial class van_rentalContext : DbContext
             entity.ToTable("vehicle_models");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.EnginePower).HasColumnName("enginePower");
             entity.Property(e => e.GasTank).HasColumnName("gas_tank");
+            entity.Property(e => e.Heating).HasColumnName("heating");
+            entity.Property(e => e.Height).HasColumnName("height");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("name");
+            entity.Property(e => e.NbLuggage).HasColumnName("nbLuggage");
             entity.Property(e => e.Pax).HasColumnName("pax");
             entity.Property(e => e.PictureUrl)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("picture_url");
+            entity.Property(e => e.PresentationText)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("presentationText");
             entity.Property(e => e.PricePerDay).HasColumnName("price_per_day");
         });
 

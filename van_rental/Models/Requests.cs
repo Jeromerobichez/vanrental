@@ -14,16 +14,16 @@ public partial class Requests
     public DateTime? ReturnDateRequested { get; set; }
 
     public string ModelVehicleRequested { get; set; }
-    
+
+    public int? ModelId { get; set; }
+
+    public string MessageRequest { get; set; }
+
     public string ClientName { get; set; }
 
     public string ClientEmail { get; set; }
 
     public string ClientTel { get; set; }
 
-    public int? ModelId { get; set; }
-
-    public string MessageRequest { get; set; }
-
-    public DateTime request_date { get; set; }
+    public DateTime? RequestDate { get; set; }
 }

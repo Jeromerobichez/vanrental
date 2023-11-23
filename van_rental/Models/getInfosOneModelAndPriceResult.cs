@@ -13,6 +13,7 @@ namespace van_rental.Models
         public int? gas_tank { get; set; }
         public int? pax { get; set; }
         public int? price_per_day { get; set; }
+        [Column("rentalPrice", TypeName = "decimal(10,2)")]
         public decimal? rentalPrice { get; set; }
     }
 }

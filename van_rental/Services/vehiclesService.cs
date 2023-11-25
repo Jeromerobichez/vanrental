@@ -97,7 +97,7 @@ namespace vanRental.Services
                 var vehicleResult = await _context.Procedures.GetAvailablesVehiclesAsync(parsedDepartureDate, parsedReturnDate);
                 var modelsAvailable = new List<getInfosOneModelAndPriceResult>();
                 vehiclesAndModels.VehiclesAvailable = vehicleResult;
-                HashSet<int> uniqueModelIds = new HashSet<int>();
+                var uniqueModelIds = new HashSet<int>();
                 foreach (var vehicle in vehicleResult)
                 {
                     uniqueModelIds.Add(vehicle.model_id);

@@ -89,27 +89,32 @@ namespace vanRental.Services
         }
         public async Task<availableVehiclesAndModels> getAvailableVehiclesBetweenTwoDates(string departureDate, string returnDate)
         {
-            var vehiclesAndModels = new availableVehiclesAndModels();
             var parsedDepartureDate = DateTime.Parse(departureDate);
             var parsedReturnDate = DateTime.Parse(returnDate);
+
+            var listOfAvailableVehiclesAndModels = new availableVehiclesAndModels();
+            
             if (parsedReturnDate > parsedDepartureDate)
             {
-                var vehicleResult = await _context.Procedures.GetAvailablesVehiclesAsync(parsedDepartureDate, parsedReturnDate);
-                var modelsAvailable = new List<getInfosOneModelAndPriceResult>();
-                vehiclesAndModels.VehiclesAvailable = vehicleResult;
-                var uniqueModelIds = new HashSet<int>();
-                foreach (var vehicle in vehicleResult)
-                {
-                    uniqueModelIds.Add(vehicle.model_id);
-                }
-                foreach (int item in uniqueModelIds)
-                {
-                    var model = await GetInfosOneModelAndPrice(item, parsedDepartureDate, parsedReturnDate);
-                    modelsAvailable.Add(model);
-                }
-                vehiclesAndModels.ModelsAvailable = modelsAvailable;
+                var vehiclesThatAreAvailable = await _context.Procedures.GetAvailablesVehiclesAsync(parsedDepartureDate, parsedReturnDate);
+                
+                listOfAvailableVehiclesAndModels.VehiclesAvailable = vehiclesThatAreAvailable;
 
-                return vehiclesAndModels;
+                var modelsThatAreAvailable = new List<getInfosOneModelAndPriceResult>();
+
+                var modelsIdsWithoutDoublon = new HashSet<int>();
+                foreach (var vehicle in vehiclesThatAreAvailable)
+                {
+                    modelsIdsWithoutDoublon.Add(vehicle.model_id);
+                }
+                foreach (int id in modelsIdsWithoutDoublon)
+                {
+                    var model = await GetInfosOneModelAndPrice(id, parsedDepartureDate, parsedReturnDate);
+                    modelsThatAreAvailable.Add(model);
+                }
+                listOfAvailableVehiclesAndModels.ModelsAvailable = modelsThatAreAvailable;
+
+                return listOfAvailableVehiclesAndModels;
             }
             else throw new Exception("la date de retour est antérieure à la date de départ");
 
